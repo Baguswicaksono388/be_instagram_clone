@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose')
-const PORT = 5000;
-const {MONGOURI} = require('./keys');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+// const {MONGOURI} = require('./keys');
+const dotenv = require('dotenv');
+dotenv.config();
 
-mongoose.connect(MONGOURI, {
+mongoose.connect(process.env.MONGOURI, {
     useNewUrlParser:true,
     useUnifiedTopology:true
 });
@@ -26,6 +28,6 @@ app.use(express.json());
 app.use(require('./routes/auth'));
 app.use(require('./routes/post'));
 
-app.listen(PORT, () => {
-    console.log(`Server started on port`, PORT);
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on port ${process.env.PORT}`);
 });
